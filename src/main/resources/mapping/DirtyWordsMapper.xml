@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangxiao.dao.DirtyWordsMapper">
+  <resultMap id="BaseResultMap" type="com.wangxiao.entity.DirtyWords">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="dirty_words" jdbcType="VARCHAR" property="dirtyWords" />
+    <result column="sort_index" jdbcType="INTEGER" property="sortIndex" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dirty_words, sort_index
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dic_dirtywords
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dic_dirtywords
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wangxiao.entity.DirtyWords">
+    insert into dic_dirtywords (id, dirty_words, sort_index
+      )
+    values (#{id,jdbcType=INTEGER}, #{dirtyWords,jdbcType=VARCHAR}, #{sortIndex,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangxiao.entity.DirtyWords">
+    insert into dic_dirtywords
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dirtyWords != null">
+        dirty_words,
+      </if>
+      <if test="sortIndex != null">
+        sort_index,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="dirtyWords != null">
+        #{dirtyWords,jdbcType=VARCHAR},
+      </if>
+      <if test="sortIndex != null">
+        #{sortIndex,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangxiao.entity.DirtyWords">
+    update dic_dirtywords
+    <set>
+      <if test="dirtyWords != null">
+        dirty_words = #{dirtyWords,jdbcType=VARCHAR},
+      </if>
+      <if test="sortIndex != null">
+        sort_index = #{sortIndex,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangxiao.entity.DirtyWords">
+    update dic_dirtywords
+    set dirty_words = #{dirtyWords,jdbcType=VARCHAR},
+      sort_index = #{sortIndex,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,16 @@
+#公共配置
+server:  servlet:    context-path: /transfer
+
+spring: 
+  application:
+    name: wangxiao-transfer
+  profiles:
+    #默认激活哪一个环境的配置文件
+    active: test
+---     
+spring:
+  profiles: dev 
+---  
+spring:
+  profiles: test 
+ 

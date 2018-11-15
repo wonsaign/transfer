@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangxiao.dao.RecordContentMapper">
+  <resultMap id="BaseResultMap" type="com.wangxiao.entity.RecordContent">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="msgType" jdbcType="VARCHAR" property="msgtype" />
+    <result column="text" jdbcType="VARCHAR" property="text" />
+    <result column="descT" jdbcType="VARCHAR" property="desc" />
+    <result column="latitude" jdbcType="DOUBLE" property="latitude" />
+    <result column="longitude" jdbcType="DOUBLE" property="longitude" />
+    <result column="expressionIndex" jdbcType="INTEGER" property="index" />
+    <result column="data" jdbcType="VARCHAR" property="data" />
+    <result column="ext" jdbcType="VARCHAR" property="ext" />
+    <result column="sound" jdbcType="VARCHAR" property="sound" />
+    <result column="UUID" jdbcType="VARCHAR" property="uuid" />
+    <result column="size" jdbcType="INTEGER" property="size" />
+    <result column="second" jdbcType="INTEGER" property="second" />
+    <result column="imageFormat" jdbcType="INTEGER" property="imageformat" />
+    <result column="imageInfoArray" jdbcType="VARCHAR" property="imageinfoarray" />
+    <result column="fileSize" jdbcType="INTEGER" property="filesize" />
+    <result column="fileName" jdbcType="VARCHAR" property="filename" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, pid, msgType, text, descT, latitude, longitude, expressionIndex, data, ext, sound, UUID, size, 
+    second, imageFormat, imageInfoArray, fileSize, fileName
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from msg_content
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from msg_content
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wangxiao.entity.RecordContent">
+    insert into msg_content (id, pid, msgType, text, 
+      descT, latitude, longitude, 
+      expressionIndex, data, ext, sound, 
+      UUID, size, second, 
+      imageFormat, imageInfoArray, fileSize, 
+      fileName)
+    values (#{id,jdbcType=BIGINT}, #{pid,jdbcType=BIGINT}, #{msgtype,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, 
+      #{desc,jdbcType=VARCHAR}, #{latitude,jdbcType=DOUBLE}, #{longitude,jdbcType=DOUBLE}, 
+      #{index,jdbcType=INTEGER}, #{data,jdbcType=VARCHAR}, #{ext,jdbcType=VARCHAR}, #{sound,jdbcType=VARCHAR}, 
+      #{uuid,jdbcType=VARCHAR}, #{size,jdbcType=INTEGER}, #{second,jdbcType=INTEGER}, 
+      #{imageformat,jdbcType=INTEGER}, #{imageinfoarray,jdbcType=VARCHAR}, #{filesize,jdbcType=INTEGER}, 
+      #{filename,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangxiao.entity.RecordContent">
+    insert into msg_content
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>      
+      <if test="msgtype != null">
+        msgType,
+      </if>
+      <if test="text != null">
+        text,
+      </if>
+      <if test="desc != null">
+        descT,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="index != null">
+        expressionIndex,
+      </if>
+      <if test="data != null">
+        data,
+      </if>
+      <if test="ext != null">
+        ext,
+      </if>
+      <if test="sound != null">
+        sound,
+      </if>
+      <if test="uuid != null">
+        UUID,
+      </if>
+      <if test="size != null">
+        size,
+      </if>
+      <if test="second != null">
+        second,
+      </if>
+      <if test="imageformat != null">
+        imageFormat,
+      </if>
+      <if test="imageinfoarray != null">
+        imageInfoArray,
+      </if>
+      <if test="filesize != null">
+        fileSize,
+      </if>
+      <if test="filename != null">
+        fileName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=BIGINT},
+      </if>      
+      <if test="msgtype != null">
+        #{msgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="text != null">
+        #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null">
+        #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="index != null">
+        #{index,jdbcType=INTEGER},
+      </if>
+      <if test="data != null">
+        #{data,jdbcType=VARCHAR},
+      </if>
+      <if test="ext != null">
+        #{ext,jdbcType=VARCHAR},
+      </if>
+      <if test="sound != null">
+        #{sound,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=INTEGER},
+      </if>
+      <if test="second != null">
+        #{second,jdbcType=INTEGER},
+      </if>
+      <if test="imageformat != null">
+        #{imageformat,jdbcType=INTEGER},
+      </if>
+      <if test="imageinfoarray != null">
+        #{imageinfoarray,jdbcType=VARCHAR},
+      </if>
+      <if test="filesize != null">
+        #{filesize,jdbcType=INTEGER},
+      </if>
+      <if test="filename != null">
+        #{filename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangxiao.entity.RecordContent">
+    update msg_content
+    <set>
+      <if test="msgtype != null">
+        msgType = #{msgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=BIGINT},
+      </if>      
+      <if test="text != null">
+        text = #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null">
+        descT = #{desc,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=DOUBLE},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=DOUBLE},
+      </if>
+      <if test="index != null">
+        expressionIndex = #{index,jdbcType=INTEGER},
+      </if>
+      <if test="data != null">
+        data = #{data,jdbcType=VARCHAR},
+      </if>
+      <if test="ext != null">
+        ext = #{ext,jdbcType=VARCHAR},
+      </if>
+      <if test="sound != null">
+        sound = #{sound,jdbcType=VARCHAR},
+      </if>
+      <if test="uuid != null">
+        UUID = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        size = #{size,jdbcType=INTEGER},
+      </if>
+      <if test="second != null">
+        second = #{second,jdbcType=INTEGER},
+      </if>
+      <if test="imageformat != null">
+        imageFormat = #{imageformat,jdbcType=INTEGER},
+      </if>
+      <if test="imageinfoarray != null">
+        imageInfoArray = #{imageinfoarray,jdbcType=VARCHAR},
+      </if>
+      <if test="filesize != null">
+        fileSize = #{filesize,jdbcType=INTEGER},
+      </if>
+      <if test="filename != null">
+        fileName = #{filename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangxiao.entity.RecordContent">
+    update msg_content
+    set pid = #{pid,jdbcType=BIGINT},
+      msgType = #{msgtype,jdbcType=VARCHAR},
+      text = #{text,jdbcType=VARCHAR},
+      descT = #{desc,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=DOUBLE},
+      longitude = #{longitude,jdbcType=DOUBLE},
+      expressionIndex = #{index,jdbcType=INTEGER},
+      data = #{data,jdbcType=VARCHAR},
+      ext = #{ext,jdbcType=VARCHAR},
+      sound = #{sound,jdbcType=VARCHAR},
+      UUID = #{uuid,jdbcType=VARCHAR},
+      size = #{size,jdbcType=INTEGER},
+      second = #{second,jdbcType=INTEGER},
+      imageFormat = #{imageformat,jdbcType=INTEGER},
+      imageInfoArray = #{imageinfoarray,jdbcType=VARCHAR},
+      fileSize = #{filesize,jdbcType=INTEGER},
+      fileName = #{filename,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

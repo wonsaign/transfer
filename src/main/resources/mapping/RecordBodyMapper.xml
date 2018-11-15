@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangxiao.dao.RecordBodyMapper">
+  <resultMap id="BaseResultMap" type="com.wangxiao.entity.RecordBody">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="callbackCommand" jdbcType="VARCHAR" property="callbackcommand" />
+    <result column="groupId" jdbcType="VARCHAR" property="groupid" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="from_Account" jdbcType="VARCHAR" property="fromAccount" />
+    <result column="operator_Account" jdbcType="VARCHAR" property="operatorAccount" />
+    <result column="random" jdbcType="INTEGER" property="random" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, callbackCommand, groupId, type, from_Account, operator_Account, random, createTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from msg_body
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from msg_body
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wangxiao.entity.RecordBody">
+    insert into msg_body (id, callbackCommand, groupId, 
+      type, from_Account, operator_Account, 
+      random, createTime)
+    values (#{id,jdbcType=BIGINT}, #{callbackcommand,jdbcType=VARCHAR}, #{groupid,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{fromAccount,jdbcType=VARCHAR}, #{operatorAccount,jdbcType=VARCHAR}, 
+      #{random,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangxiao.entity.RecordBody">
+    insert into msg_body
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="callbackcommand != null">
+        callbackCommand,
+      </if>
+      <if test="groupid != null">
+        groupId,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="fromAccount != null">
+        from_Account,
+      </if>
+      <if test="operatorAccount != null">
+        operator_Account,
+      </if>
+      <if test="random != null">
+        random,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="callbackcommand != null">
+        #{callbackcommand,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null">
+        #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="fromAccount != null">
+        #{fromAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorAccount != null">
+        #{operatorAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="random != null">
+        #{random,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangxiao.entity.RecordBody">
+    update msg_body
+    <set>
+      <if test="callbackcommand != null">
+        callbackCommand = #{callbackcommand,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null">
+        groupId = #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="fromAccount != null">
+        from_Account = #{fromAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorAccount != null">
+        operator_Account = #{operatorAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="random != null">
+        random = #{random,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangxiao.entity.RecordBody">
+    update msg_body
+    set callbackCommand = #{callbackcommand,jdbcType=VARCHAR},
+      groupId = #{groupid,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      from_Account = #{fromAccount,jdbcType=VARCHAR},
+      operator_Account = #{operatorAccount,jdbcType=VARCHAR},
+      random = #{random,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
