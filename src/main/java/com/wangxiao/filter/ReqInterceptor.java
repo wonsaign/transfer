@@ -20,11 +20,11 @@ public class ReqInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		logger.info("请求路径:{}",request.getRequestURI());
+		logger.info("RequestPath:{}",request.getRequestURI());
 		String appid = TencentConfig.getResource().getString("SdkAppid");
 		String req_appid = request.getParameter("SdkAppid");
 		if(Strings.isNullOrEmpty(req_appid) || !appid.equals(req_appid) ) {
-			logger.info("SdkAppid不正确,要求{},但请求是{}",appid,req_appid);
+			logger.info("SdkAppid is not correct,required {},but {}",appid,req_appid);
 			response.setStatus(403);
 			return false;
 		}

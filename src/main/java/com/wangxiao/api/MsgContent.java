@@ -46,6 +46,13 @@ public class MsgContent {
 	public void setFields(MsgContent mc,RecordContent rc) {}
 	public void doFilterWords(MsgContent mc) {}
 	
+	public MsgContent getPolyContent(String msgType) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+		String clazzName = PACKAGE_NAME + msgType; 
+		Class<?> clazz = Class.forName(clazzName);
+		// this is init , must be null
+		return (MsgContent)clazz.newInstance();
+	}
+	
 	//@JSONField(name="Text")
 	public String getText() {
 		return text;

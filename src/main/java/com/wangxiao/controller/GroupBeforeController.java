@@ -8,6 +8,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,37 +27,39 @@ import com.wangxiao.utils.JSONUtil;
 @RequestMapping("/")
 public class GroupBeforeController {
 
+	static Logger log = LoggerFactory.getLogger(GroupBeforeController.class);
 	
 	@Autowired
 	private MsgBodyService msgBodyService;
 	
+	/**
+	 * 
+	 * step1 : 插入数据库聊天记录 ,原内容入库
+	 * step2 : 脏字过滤并切换,只处理文本类型的内容
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@PostMapping("api")
 	public GroupRes getMsg(HttpServletRequest request){
 		try {
-			List<MsgBody> dealed = new ArrayList<>();
+			List<MsgBody> dealedMsg = new ArrayList<>();
 			
 			JSONObject json = JSONUtil.handleData(request);
 			// TODO:根据请求头中的参数不同,选择不同的业务方法
 			GroupReq gr = json.toJavaObject(GroupReq.class);
 			// FIXME: 高并发的时候,需要重新考虑
-			// step1 : 插入数据库聊天记录 ,原内容入库
 			msgBodyService.saveBody(gr);
-			// step2 : 脏字过滤并切换,只处理文本类型的内容
-			// 使用多态代替switch case
+			
 			List<MsgBody> msgs = gr.getMsgBody();
 			for (MsgBody msgBody : msgs) {
 				MsgContent http_mc = (MsgContent) msgBody.getMsgContent();
-				String clazzName = MsgContent.PACKAGE_NAME + msgBody.getMsgType(); 
-				Class<?> clazz = Class.forName(clazzName);
-				MsgContent msgContent = (MsgContent)clazz.newInstance();// this is init , must be null
-				msgContent.doFilterWords(http_mc);
-				
-				dealed.add(msgBody);
+				http_mc.getPolyContent(msgBody.getMsgType()).doFilterWords(http_mc);
+				dealedMsg.add(msgBody);
 			}
-			// step3 : 返回正确结果
-			return new GroupRes("OK", "success", CODE_ALLOW, dealed);
+			return new GroupRes("OK", "success", CODE_ALLOW, dealedMsg);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error("Exception:", e);
 			return new GroupRes("Fail", "fail", CODE_DEFAULT_DROP);
 		}
 	}

@@ -15,8 +15,6 @@ import com.wangxiao.utils.IdGenerator;
 
 @Service
 public class MsgContentServiceImpl implements MsgContentService{
-
-	
 	
 	@Autowired
 	private RecordContentMapper msgContentMapper;
@@ -31,14 +29,11 @@ public class MsgContentServiceImpl implements MsgContentService{
 			
 			RecordContent rc = new RecordContent();
 			rc.setPid(pid);
-			long pk_id = IdGenerator.getInstance().nextId();
-			rc.setId(pk_id);
-			// use polymorhpic replace 'switch ... case ...'
-			String clazzName = MsgContent.PACKAGE_NAME + msgType; 
-			Class<?> clazz = Class.forName(clazzName);
-			MsgContent msgContent = (MsgContent)clazz.newInstance();
-			msgContent.setFields(http_mc, rc);
+			rc.setId(IdGenerator.getInstance().nextId());
 			rc.setMsgtype(msgType);
+			// use polymorhpic replace 'switch ... case ...'
+			http_mc.getPolyContent(msgType).setFields(http_mc, rc);
+			
 			msgContentMapper.insertSelective(rc);
 		}
 	}

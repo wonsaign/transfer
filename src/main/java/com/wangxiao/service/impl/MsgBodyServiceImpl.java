@@ -30,8 +30,8 @@ public class MsgBodyServiceImpl implements MsgBodyService{
 	public void saveBody(GroupReq gr) throws Exception {
 		// FIXME: 使用BeanDup 方法
 		RecordBody record = new RecordBody();
-		Long pid = IdGenerator.getInstance().nextId();
-		record.setId(pid);
+		Long pk_id = IdGenerator.getInstance().nextId();
+		record.setId(pk_id);
 		record.setCallbackcommand(gr.getCallBackCommand());
 		record.setFromAccount(gr.getFrom_Account());
 		record.setGroupid(gr.getGroupId());
@@ -40,9 +40,7 @@ public class MsgBodyServiceImpl implements MsgBodyService{
 		record.setType(gr.getType());
 		record.setCreatetime(new Date());
 		List<MsgBody> msgBodies = gr.getMsgBody();
-		msgContentService.saveContent(msgBodies, pid);
+		msgContentService.saveContent(msgBodies, pk_id);
 		msgBodyMapper.insertSelective(record);
-		
-		
 	}
 }
